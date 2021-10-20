@@ -9,5 +9,11 @@ public class DataTypes {
         char firstLetter = 'A';
         boolean isAdult = true;
         System.out.println("Hello World!" + " " +age + " " +subscribeCount + " " +viewCount + " " +percentage + " " +firstLetter + " " +isAdult);
+
+        String message = "     Hi! This is Yansh here";
+        System.out.println(message.indexOf("Yansh"));
+        System.out.println(message.indexOf('i', 2));
+        System.out.println(message.replace("Yansh", "Priyanshu"));
+        System.out.println(message.trim());
     }
 }
