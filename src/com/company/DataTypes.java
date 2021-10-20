@@ -24,6 +24,5 @@ public class DataTypes {
         System.out.println(Math.min(x,y));
         System.out.println(Math.sqrt(y));
         System.out.println((int)(Math.random()*101)); //random btw 0,100
-
     }
 }
