@@ -1,4 +1,4 @@
-package com.company;
+package com.JavaBootCamp.Basic;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package com.company;
+package com.JavaBootCamp.Basic;
 
 public class DataTypes {
     public static void main(String[] args) {
