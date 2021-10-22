@@ -1,4 +1,4 @@
-package com.JavaBootCamp.TestConstructor;
+package com.JavaBootCamp.ObjectOrientedProgramming.TestConstructor;
 
 public class ThisImplementation {
     public static void main(String args[]){

@@ -1,4 +1,4 @@
-package com.JavaBootCamp.TestConstructor;
+package com.JavaBootCamp.ObjectOrientedProgramming.TestConstructor;
 
 public class ConstructorChaining {
     String sName;
