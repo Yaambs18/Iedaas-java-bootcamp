@@ -3,10 +3,9 @@ package com.javabootcamp.assignment1;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
 
-public class TambolaGameAssignment extends Thread{
+class TambolaGameAssignment {
 
     public HashMap<Integer, Boolean> ticketgenerator() {
         HashMap<Integer, Boolean> ticket = new HashMap<>();
@@ -19,7 +18,7 @@ public class TambolaGameAssignment extends Thread{
         return ticket;
     }
 
-    public void displayticket(HashMap<Integer, Boolean> ticket){
+    public static void displayticket(HashMap<Integer, Boolean> ticket){
         Iterator<Integer> itemkey = ticket.keySet().iterator();
         int row = 0;
         while(itemkey.hasNext())
@@ -59,43 +58,7 @@ public class TambolaGameAssignment extends Thread{
         return board;
     }
 
-    public void randomnumber(HashMap<Integer,Boolean> playerticket, HashMap<Integer,Boolean> tambola_board){
-        System.out.println("Let's begin the game..................");
-        while(playerticket.containsValue(false)){
-            int random_number;
-            int min=1,max=90;
-            random_number = (int)(Math.random()*(max - min+1)+min);
-            if(!tambola_board.get(random_number)){
-                tambola_board.replace(random_number, true);
-                System.out.println(random_number);
-                if(playerticket.containsKey(random_number)){
-                    playerticket.replace(random_number, true);
-                }
-                displayticket(playerticket);
-            }
-            try {
-                TambolaGameAssignment.sleep(4000);
-            }
-            catch (Exception e){
-                System.out.println(e);
-            }
-
-            }
-        FileWriter file;
-        String filepath = "/home/yaambs18/IdeaProjects/Iedaas-java-bootcamp/src/com/javabootcamp/assignment1/TambolaBoard.txt";
-        try {
-            file = new FileWriter(filepath);
-            String boarddata = tambola_board.toString();
-            file.write(boarddata);
-            file.close();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        System.out.println("Hey! It's Housie, please verify....");
-        checker(playerticket, filepath);
-        }
-    void checker(HashMap<Integer,Boolean> playerticket, String path){
+    public static void checker(HashMap<Integer,Boolean> playerticket, String path){
         System.out.println("Wait I am checking.....");
         HashMap<Integer, Boolean> board = new HashMap<Integer, Boolean>();
         try {
@@ -113,27 +76,23 @@ public class TambolaGameAssignment extends Thread{
         catch (FileNotFoundException e){
             System.out.println(e);
         }
+
         Iterator<Integer> ticketkeys = playerticket.keySet().iterator();
-        while(ticketkeys.hasNext()){
-            int key=ticketkeys.next();
-            if(!board.get(key)){
-                System.out.println("Sorry you did some incorrect removal.");
+        try {
+            while (ticketkeys.hasNext()) {
+                int key = ticketkeys.next();
+                if (!board.get(key)) {
+                    System.out.println("Sorry you did some incorrect removal.");
+                }
             }
+            System.out.println("Congratulations..... You Won!!!!");
         }
-        System.out.println("Congratulations..... You Won!!!!");
+        catch(NullPointerException e){
+            System.out.println("Wrong path provided.......");
+        }
 
     }
     public static void main(String[] args) {
-        TambolaGameAssignment obj = new TambolaGameAssignment();
-        HashMap<Integer, Boolean> player1 = obj.ticketgenerator();
-        obj.displayticket(player1);
-        try {
-            TambolaGameAssignment.sleep(3000);
-        }catch (Exception exp){
-            System.out.println(exp);
-        }
-        HashMap<Integer,Boolean> tambolaboard = obj.boardmaker();
-        obj.displayboard(tambolaboard);
-        obj.randomnumber(player1, tambolaboard);
+
     }
 }
