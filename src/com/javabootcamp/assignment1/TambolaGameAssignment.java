@@ -1,13 +1,9 @@
 package com.javabootcamp.assignment1;
 
-import com.javabootcamp.basic.Exp;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.stream.IntStream;
 
-public class TambolaGameAssignment {
+public class TambolaGameAssignment extends Thread{
 
     public HashMap<Integer, Boolean> ticketgenerator() {
         HashMap<Integer, Boolean> ticket = new HashMap<>();
@@ -65,7 +61,7 @@ public class TambolaGameAssignment {
             int random_number;
             int min=1,max=90;
             random_number = (int)(Math.random()*(max - min+1)+min);
-            if(tambola_board.get(random_number) == false){
+            if(!tambola_board.get(random_number)){
                 tambola_board.replace(random_number, true);
                 System.out.println(random_number);
                 if(playerticket.containsKey(random_number)){
@@ -74,7 +70,7 @@ public class TambolaGameAssignment {
                 }
             }
             try {
-                Exp.sleep(1000);
+                TambolaGameAssignment.sleep(1000);
             }
             catch (Exception e){
                 System.out.println(e);
@@ -89,7 +85,7 @@ public class TambolaGameAssignment {
         Iterator<Integer> ticketkeys = playerticket.keySet().iterator();
         while(ticketkeys.hasNext()){
             int key=ticketkeys.next();
-            if(tambola_board.get(key)==false){
+            if(!tambola_board.get(key)){
                 System.out.println("Sorry you did some incorrect removal.");
             }
         }
