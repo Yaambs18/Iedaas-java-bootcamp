@@ -13,32 +13,31 @@ class Dealer{
         System.out.println("Let's begin the game..................");
         Scanner sc = new Scanner(System.in);
         String pressedkey;
-
         while(tambolaBoard.containsValue(false)){
-            pressedkey = sc.nextLine();
-            if(!pressedkey.equals("")){
-                System.out.println("Hey! It's Housie, please verify....");
-                break;
-            }
             int random_number;
             int min=1,max=90;
             random_number = (int)(Math.random()*(max - min+1)+min);
-            if(!tambolaBoard.get(random_number)){
+            if(!tambolaBoard.get(random_number)) {
+                pressedkey = sc.nextLine();
                 System.out.println("Press enter to continue else press any key if it's \"Housie\"");
                 tambolaBoard.replace(random_number, true);
                 System.out.println(random_number);
-            }
-            FileWriter file;
-            try {
-                file = new FileWriter(filepath);
-                String boarddata = tambolaBoard.toString();
-                file.write(boarddata);
-                file.close();
-            }
-            catch(IOException e){
-                System.out.println(e.getMessage());
-            }
 
+                if(!pressedkey.equals("")){
+                    System.out.println("Hey! It's Housie, please verify....");
+                    break;
+                }
+            }
+        }
+        FileWriter file;
+        try {
+            file = new FileWriter(filepath);
+            String boarddata = tambolaBoard.toString();
+            file.write(boarddata);
+            file.close();
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
 }
