@@ -1,43 +1,33 @@
 package com.javabootcamp.assignment1;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 
-class Dealer{
+class Dealer implements Runnable{
+    static int randomNumber;
+    HashMap<Integer,Boolean> tambolaBoard = TambolaBoard.board;
 
-    String filepath = "/home/yaambs18/IdeaProjects/Iedaas-java-bootcamp/src/com/javabootcamp/assignment1/TambolaBoard.txt";
-
-    void randomnumber(HashMap<Integer,Boolean> tambolaBoard){
+    void randomNumberGenerator(){
         System.out.println("Let's begin the game..................");
-        Scanner sc = new Scanner(System.in);
-        String pressedkey;
-        while(tambolaBoard.containsValue(false)){
-            int random_number;
-            int min=1,max=90;
-            random_number = (int)(Math.random()*(max - min+1)+min);
-            if(!tambolaBoard.get(random_number)) {
-                pressedkey = sc.nextLine();
-                System.out.println("Press enter to continue else press any key if it's \"Housie\"");
-                tambolaBoard.replace(random_number, true);
-                System.out.println(random_number);
-
-                if(!pressedkey.equals("")){
-                    System.out.println("Hey! It's Housie, please verify....");
-                    break;
+        while(true){
+            if(Player.housie){
+                randomNumber=0;
+                System.exit(0);
+            }
+            else {
+                int min = 1, max = 90;
+                randomNumber = (int) (Math.random() * (max - min + 1) + min);
+                if (!tambolaBoard.get(randomNumber)) {
+                    System.out.println("Generated number: "+randomNumber);
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-        FileWriter file;
-        try {
-            file = new FileWriter(filepath);
-            String boarddata = tambolaBoard.toString();
-            file.write(boarddata);
-            file.close();
-        }
-        catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+    }
+    public void run(){
+        randomNumberGenerator();
     }
 }

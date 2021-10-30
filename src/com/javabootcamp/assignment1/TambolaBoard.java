@@ -5,37 +5,48 @@ import java.util.Iterator;
 
 public class TambolaBoard implements Runnable{
 
-    private HashMap<Integer, Boolean> board;
+    static HashMap<Integer, Boolean> board = new HashMap<>();
 
     TambolaBoard(){
-        this.board = new HashMap<>();
-    }
-
-    HashMap<Integer, Boolean> getboard() {
-        return board;
-    }
-    void boardMaker() {
         int number;
         for(number=1;number<91;number++) {
             board.put(number, false);
         }
     }
+
+    void boardMarker() {
+        boolean numberGenerated = true;
+        while(numberGenerated){
+            int generatedNumber = Dealer.randomNumber;
+            if(generatedNumber>0){
+                board.replace(generatedNumber, true);
+            }
+            else{
+                numberGenerated=false;
+            }
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     protected void displayBoard(){
         System.out.println("Tambola board................");
         Iterator<Integer> itemsKey = board.keySet().iterator();
-        int row = 0;
+        int counter = 0;
         while(itemsKey.hasNext())
         {
-            if(row%9==0){
+            if(counter%9==0){
                 System.out.println();
             }
             int key=itemsKey.next();
             System.out.print(key+":"+board.get(key)+"    ");
-            row++;
+            counter++;
         }
         System.out.println("\n");
     }
     public void run(){
-        boardMaker();
+        boardMarker();
     }
 }

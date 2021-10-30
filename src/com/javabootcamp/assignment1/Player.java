@@ -5,41 +5,52 @@ import java.util.Iterator;
 
 public class Player implements Runnable {
 
-    private HashMap<Integer, Boolean> ticket;
-
-    Player() {
-        this.ticket = new HashMap<>();
-    }
-
-    HashMap<Integer, Boolean> gettickets() {
-        return ticket;
-    }
-
-    void ticketgenerator() {
-        int random_number;
+    HashMap<Integer, Boolean> ticket = new HashMap<>();
+    static boolean housie = false;
+    private Checker checker = new Checker();
+    private  final String name;
+    Player(String name) {
+        int randomNumber;
+        this.name=name;
         int min = 1, max = 90;
         while (ticket.size() != 15) {
-            random_number = (int) (Math.random() * (max - min + 1) + min);
-            ticket.put(random_number, false);
+            randomNumber = (int) (Math.random() * (max - min + 1) + min);
+            ticket.put(randomNumber, false);
         }
     }
+    void ticketMarker() {
+        while(ticket.containsValue(false)){
+            int generatedNumber = Dealer.randomNumber;
+            if(ticket.containsKey(generatedNumber)&&generatedNumber!=0) {
+                ticket.replace(generatedNumber, true);
+                System.out.println(name+" got a match "+generatedNumber);
+            }
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        checker.checker(ticket, name, TambolaBoard.board);
+        housie=true;
+    }
 
-    void displayticket() {
-        Iterator<Integer> itemkey = ticket.keySet().iterator();
-        int row = 0;
-        while (itemkey.hasNext()) {
-            if (row % 5 == 0) {
+    void displayTicket() {
+        Iterator<Integer> itemKey = ticket.keySet().iterator();
+        int counter = 0;
+        while (itemKey.hasNext()) {
+            if (counter % 5 == 0) {
                 System.out.println();
             }
-            int key = itemkey.next();
+            int key = itemKey.next();
             System.out.print(key + ":" + ticket.get(key) + "    ");
-            row++;
+            counter++;
         }
         System.out.println("\n");
     }
 
     public void run() {
-        ticketgenerator();
+        ticketMarker();
     }
 
 }
