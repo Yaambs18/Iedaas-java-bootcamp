@@ -19,10 +19,12 @@ public class Player implements Runnable {
         }
     }
     void ticketMarker() {
-        while(ticket.containsValue(false)){
+        int markedValues = 0;
+        while(markedValues!=15){
             int generatedNumber = Dealer.randomNumber;
             if(ticket.containsKey(generatedNumber)&&generatedNumber!=0) {
                 ticket.replace(generatedNumber, true);
+                markedValues+=1;
                 System.out.println(name+" got a match "+generatedNumber);
             }
             try {
